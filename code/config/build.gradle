@@ -1,0 +1,9 @@
+plugins {
+    id 'java-library'
+    id 'com.arquivei.scala-conventions'
+}
+
+dependencies {
+    api group: 'com.github.pureconfig', name: 'pureconfig_2.13', version: '0.14.1'
+    implementation group: 'io.7mind.izumi', name: 'logstage-adapter-slf4j_2.13', version: '1.0.10'
+}

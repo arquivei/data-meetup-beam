@@ -1,0 +1,46 @@
+plugins {
+    id 'com.arquivei.scala-conventions'
+    id 'application'}
+
+repositories {
+    maven {
+        url 'https://packages.confluent.io/maven/'
+    }
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+}
+
+application {
+    mainClass = 'com.arquivei.pipeline.Main'
+}
+
+// FIX:  https://github.com/GoogleCloudDataproc/hadoop-connectors/issues/383
+configurations.all {
+    resolutionStrategy {
+        force 'com.google.guava:guava:29.0-jre'
+    }
+}
+
+dependencies {
+    implementation project(':code:config')
+
+    implementation group: 'org.apache.kafka', name: 'kafka_2.13', version: '3.2.0'
+    implementation group: 'com.spotify', name: 'scio-core_2.13', version: '0.9.3'
+    implementation group: 'com.spotify', name: 'scio-extra_2.13', version: '0.9.3'
+    implementation group: 'com.spotify', name: 'scio-bigquery_2.13', version: '0.9.3'
+    implementation group: 'org.apache.beam', name: 'beam-runners-direct-java', version: '2.23.0'
+    implementation group: 'org.apache.beam', name: 'beam-runners-google-cloud-dataflow-java', version: '2.23.0'
+    implementation group: 'org.apache.beam', name: 'beam-sdks-java-io-kafka', version: '2.23.0'
+}
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.additionalParameters += [
+            '-Ymacro-annotations', //enable paradise macros needed for bigquery annotations
+    ]
+}
+
+
+
+
+

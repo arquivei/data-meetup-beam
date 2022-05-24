@@ -1,0 +1,32 @@
+plugins {
+    id 'scala'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://packages.confluent.io/maven/"
+    }
+}
+
+dependencies {
+    implementation 'org.scala-lang:scala-library:2.13.8'
+    implementation group: 'org.scala-lang', name: 'scala-reflect', version: '2.13.8'
+
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.scalatest:scalatest_2.13:3.2.10'
+    testImplementation 'org.scalatestplus:junit-4-13_2.13:3.2.10.0'
+}
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.additionalParameters = [
+            '-Ywarn-macros:after', // make the unused checks after macro expansion, avoids false positives
+            '-Ymacro-annotations', // enable paradise macros needed for scio bigquery annotations
+    ]
+    scalaCompileOptions.forkOptions.jvmArgs = [
+            '-Xss2m',
+            '-Xmx2G',
+            '-XX:+UseParallelGC'
+    ]
+}
+

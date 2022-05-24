@@ -1,0 +1,4 @@
+**/gcp-credentials.json
+.gradle
+.idea
+build
