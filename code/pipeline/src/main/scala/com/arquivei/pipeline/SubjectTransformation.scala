@@ -1,19 +1,15 @@
-package com.arquivei.pipeline.transform
+package com.arquivei.pipeline
 
-import com.arquivei.pipeline.extract.BigQuery.Row
+import com.arquivei.pipeline.bq2gcs.BigQuery.Row
 
 import java.util.UUID
 
-case class Subject() {
+case class SubjectTransformation() {
 
   private val divider = ":"
   private val sports  = "sports"
   private val books   = "books"
   private val others  = "others"
-
-  def filterFromBq(bqRow: Row): (String, String) = {
-    filter(bqRow.title)
-  }
 
   def filter(title: String): (String, String) = {
 

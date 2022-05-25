@@ -1,4 +1,4 @@
-package com.arquivei.pipeline.load
+package com.arquivei.pipeline.bq2kafka
 
 import com.arquivei.pipeline.PipelineConfig
 import org.apache.beam.sdk.io.kafka.KafkaIO
